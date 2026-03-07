@@ -1,0 +1,10 @@
+
+# Python cache
+src/__pycache__/
+__pycache__/
+*.pyc
+*.pyo
+
+# Test output artefacts
+output/
+data/processed/
