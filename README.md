@@ -751,6 +751,116 @@ The pipeline demonstrated **scalable and reliable** hunger hotspot detection acr
 
 ---
 
+## 🗂️ Repository Structure
+
+```
+.
+├── DS_Project_BigData_huger_hadoop.ipynb   # Main Jupyter notebook (Parts 1 & 2)
+├── README.md
+├── hive/
+│   └── hive_queries.sql                    # Complete Hive query suite (30+ queries, 7 SDG indicators)
+└── src/
+    ├── data_preprocessing.py               # Data cleaning, imputation, normalisation
+    ├── spark_aggregation.py                # Complete Spark aggregation pipeline
+    ├── ml_forecasting.py                   # LR, RF, GBT forecasting models
+    ├── visualization_dashboard.py          # Matplotlib/Seaborn/Plotly charts & dashboard
+    └── policy_insights.py                  # Hotspot detection, trend analysis, policy reports
+```
+
+---
+
+## 🔧 Complete Pipeline Status
+
+| Stage | Status | Module |
+|-------|--------|--------|
+| Raw Data Sources (FAO / World Bank / UNICEF) | ✅ | Notebook cells 1–21 |
+| Data Cleaning & Normalization | ✅ | `src/data_preprocessing.py` |
+| HDFS Storage (Distributed) | ✅ | Notebook cells 1–21 |
+| Hadoop Streaming MapReduce (Python) | ✅ | Notebook cells 22–66 |
+| Hive Queries (7 SDG indicators) | ✅ | `hive/hive_queries.sql` |
+| Spark Aggregation Pipeline | ✅ | `src/spark_aggregation.py` |
+| Machine Learning Forecasting | ✅ | `src/ml_forecasting.py` |
+| Visualization & Dashboard | ✅ | `src/visualization_dashboard.py` |
+| Policy Insights | ✅ | `src/policy_insights.py` |
+
+---
+
+## ▶️ Running the Complete Pipeline
+
+### Step A – Data Preprocessing
+```bash
+python src/data_preprocessing.py \
+  --sdg     data/raw/SDG_BulkDownloads_E_All_Data_Normalized_cleaned.csv \
+  --faostat data/raw/FAOSTAT_data_en_11-15-2024.csv \
+  --hunger  data/raw/hunger_index_interpolated.csv \
+  --output  data/processed/features.csv \
+  --normalize
+```
+
+### Step B – Hive Queries
+```bash
+# Run the full Hive query suite (requires Hive 4.0.1 + HDFS MapReduce outputs)
+hive -f hive/hive_queries.sql
+```
+
+### Step C – Spark Aggregation
+```bash
+python src/spark_aggregation.py \
+  --hdfs-base /output \
+  --output-dir output/spark
+```
+
+### Step D – ML Forecasting
+```bash
+python src/ml_forecasting.py \
+  --features data/processed/features.csv \
+  --horizon  3 \
+  --output-dir output/ml
+```
+
+### Step E – Visualization & Dashboard
+```bash
+python src/visualization_dashboard.py \
+  --trend      output/spark/yearly_global_trend.csv \
+  --rank       output/spark/regional_rankings.csv \
+  --afford     output/spark/affordability_metrics.csv \
+  --risk       output/spark/composite_risk_scores.csv \
+  --growth     output/spark/growth_rate_analysis.csv \
+  --hunger-long output/spark/hunger_long.csv \
+  --forecast   output/ml/hunger_index_forecast.csv \
+  --features   data/processed/features.csv \
+  --output-dir output/visualizations
+```
+
+### Step F – Policy Insights
+```bash
+python src/policy_insights.py \
+  --risk    output/spark/composite_risk_scores.csv \
+  --growth  output/spark/growth_rate_analysis.csv \
+  --afford  output/spark/affordability_metrics.csv \
+  --forecast output/ml/hunger_index_forecast.csv \
+  --output-dir output/policy_insights
+```
+
+The Jupyter notebook (`DS_Project_BigData_huger_hadoop.ipynb`) integrates all steps above in **Part 2** (cells 104–140).
+
+---
+
+## 📤 Output Files
+
+| Path | Description |
+|------|-------------|
+| `data/processed/features.csv` | Cleaned & normalised feature matrix |
+| `output/spark/*.csv` | Aggregation results per pipeline stage |
+| `output/ml/model_comparison.csv` | LR / RF / GBT benchmark results |
+| `output/ml/hunger_index_forecast.csv` | 3-year hunger index forecast |
+| `output/visualizations/*.png` | Static charts (Matplotlib/Seaborn) |
+| `output/visualizations/zero_hunger_dashboard.html` | Interactive Plotly dashboard |
+| `output/policy_insights/policy_insights_report.md` | Full Markdown policy brief |
+| `output/policy_insights/policy_insights.json` | Machine-readable JSON insights |
+
+---
+
 ## 👨‍💻 Authors
 
 Govardhan Reddy Narala  
