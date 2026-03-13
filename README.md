@@ -11,6 +11,15 @@ This project aligns with **United Nations Sustainable Development Goal (SDG) 2: 
 
 ---
 
+## 🔑 Key Work
+
+- **Distributed Data Processing with Hadoop & MapReduce** — Built a Hadoop Streaming MapReduce pipeline (5 jobs) to ingest and aggregate 86,657 records spanning 180+ countries and 23 years (2000–2023) from FAO, World Bank, and UNICEF datasets, enabling scalable, fault-tolerant analysis of global hunger indicators.
+- **SQL Analytics with Hive & Spark** — Executed 30+ Hive SQL queries across 7 UN SDG 2 indicators and developed a PySpark aggregation pipeline to compute regional food-insecurity scores, undernourishment trends, and diet-cost metrics at distributed scale.
+- **Machine Learning Forecasting** — Trained and evaluated Linear Regression, Random Forest, and Gradient Boosted Tree models (best R² = 0.96, CV = 0.94 ± 0.02) to forecast future hunger levels, surfacing critical hotspots such as Yemen (+481% food-insecurity growth) and Angola (72% diet unaffordability).
+- **Visualization & Policy Insights** — Generated 7 publication-ready charts (heatmaps, trend lines, interactive Plotly dashboards) and automated policy-insight reports that identify high-risk regions and translate data findings into actionable recommendations for governments and NGOs.
+
+---
+
 ## 🏆 What We Achieved
 
 ```
